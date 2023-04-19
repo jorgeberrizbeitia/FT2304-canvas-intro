@@ -83,10 +83,103 @@ ctx.arc( 100, 300, 40, 0, 1.5 * Math.PI, false )
 // 6. (opcional) es contrareloj o a favor de reloj (false predeterminado)
 
 ctx.lineTo(100, 300)
+ctx.lineTo(140, 300)
 
 // rellenar el trazado que acabo de realizar
 ctx.fillStyle = "yellow"
 ctx.fill()
 
+
+
 ctx.stroke() // llamada de acción. realiza el trazado siguiente los metodos anteriores
 ctx.closePath() // aqui termina el trazado
+
+// ojo de pacman
+ctx.beginPath()
+ctx.arc( 85, 283, 5, 0, 2 * Math.PI, false )
+ctx.fillStyle = "black"
+ctx.stroke() 
+ctx.fill()
+ctx.closePath()
+
+
+ctx.beginPath()
+
+ctx.moveTo(150, 200)
+ctx.lineTo(150, 250)
+ctx.lineTo(200, 200)
+ctx.lineTo(150, 200)
+
+ctx.stroke() 
+ctx.fill()
+
+ctx.closePath()
+
+
+// Images
+
+let imagen = new Image()
+imagen.src = "https://tinyurl.com/ironhack-pokemons/25.svg";
+
+// metodo para dubujar imagenes en canvas
+// ctx.drawImage(imagen, 100, 400, 100, 100) // o agregamos 2 valores de dimensiones
+// ctx.drawImage(imagen, 100, 400) // o no agregamos dimensiones y toma el original de la imagen
+// 1. la image
+// 2-5. los mismos que dibujar un cuadrado
+
+// para prevenir que la imagen no se haya recibo al momento de dibujarla.
+imagen.addEventListener("load", () => {
+  // ejemplo para primero asegurarnos de recibir la imagen antes de pintarla
+  ctx.drawImage(imagen, 100, 400, 100, 120)
+})
+
+// tambien podemos agregar textos => Self-guided
+
+
+
+//* Recursion
+
+let control = 0;
+
+function printSomething() {
+  console.log("ejecutando recursion")
+  control++
+
+  if (control < 1000) {
+    printSomething() // volver a ejecutar la misma funcion
+  }
+}
+
+// printSomething()
+
+// for (let i = 0; i < 1000; i++) {
+//   console.log("ejecutando bucle for")
+// }
+
+// ejemplo de recursion para crear animaciones
+
+// let controlAnimation = 0;
+let posicionXCubito = 50;
+
+function animarCubo() {
+  // controlAnimation++
+  console.log("Intentando animar un cubo")
+  // 1. tengo que limpiar el canvas
+  ctx.clearRect(0, 550, 400, 50)
+  
+  // 2. modificar la posición de el elemento
+  posicionXCubito += 10
+  
+  // 3. dibujamos los elementos
+  ctx.fillRect(posicionXCubito, 550, 30, 30)
+  
+  // 4. recursion
+  if (posicionXCubito < 300) {
+    // animarCubo()
+    // requestAnimationFrame => metodo que nos permite generar recursion a una velocidad optimizada para la pantalla
+    requestAnimationFrame(animarCubo) // analiza el FPS del la pantalla => ejecuta la funcion 60 veces por segundo.
+  }
+
+}
+
+animarCubo()
